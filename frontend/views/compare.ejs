@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Energy Plans</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.13/angular-sanitize.min.js"></script>
+  
+    <script src="/js/script.js"></script>
+    <script src="/js/controllers.js"></script>
+    <!-- <script src="directives.js"></script> -->
+    <script src="/js/services.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+        <section class="section section-header">
+            <header id="topbar">
+                <nav class="navbar navbar-expand-lg d-none d-lg-block">
+                  <div class="container">
+                    <ul class="navbar-nav mr-auto">
+                      <li class="nav-item">
+                        <a class="nav-link"><i class="fa fa-phone"></i>041-902-3339-323</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link"><i class="fa fa-envelope-o"></i>australiamarket@australiamarket.com.au</a>
+                      </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                      <a href="#" class="btn btn-danger btn-login">Log In</a>
+                      <a href="#" class="btn btn-danger btn-register">Register</a>
+                    </form>
+                  </div>
+                </nav>
+            </header>
+      
+            <div class="banner-container">
+                <nav class="navbar navbar-expand-lg ">
+                  <div class="container">
+                    <a class="navbar-brand d-none d-lg-block" href="/"><img src="/images/logo.png"></a>
+                    <a class="navbar-brand d-lg-none" href="/"><img src="/images/mobile-logo.png"></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="fa fa-bars"></span>
+                    </button>
+                  
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Find Energy Plan</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Our Story</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">FAQs</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Contact Us</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </nav>
+                <div class="container py-5">
+                  <div class="row">
+                    <div class="col-md-6 my-auto text-md-left text-center">
+                      <h1 class="text-uppercase">ENERGY PLANS SEARCH</h1>
+                      <p class="description">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,</p>
+                    </div>
+                    <div class="col-md-6 d-none d-md-block text-center"><img src="/images/plan.png" class="img-fluid" alt=""></div>
+                  </div>
+                </div>
+            </div>
+        </section>
+      
+        <div class="container py-5" ng-app="App" ng-controller="AppController">
+          <div class="steps mb-5">
+            <ul role="tablist" class="m-auto px-0">
+              <li role="tab" class="current col-sm">
+                <a>
+                  <span class="current-info audible"> </span>
+                  <h3 class="title font-weight-bold">1. Upload Bill</h3>
+                </a>
+              </li>
+              <li role="tab" class="col-sm ng-class:{'current':step>1}">
+                <a>
+                  <h3 class="title font-weight-bold">2. Compare Plan</h3>
+                </a>
+              </li>
+              <li role="tab" class="col-sm ng-class:{'current':step>2}">
+                <a>
+                  <h3 class="title font-weight-bold">3. Switch Plan</h3>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="content clearfix">
+            <fieldset id="step1" role="tabpanel" class="body" ng-show="step==1">
+              <div class="form-group">
+                <!-- <label for="firstname">First Name<span class="required">*</span></label> -->
+                <input class="form-control" ng-model="first_name" placeholder="First Name">
+              </div>
+              <div class="form-group">
+                <!-- <label for="lastname">Last Name<span class="required">*</span></label> -->
+                <input class="form-control" ng-model="last_name" placeholder="Last Name">
+              </div>
+              <div class="form-group">
+                <!-- <label for="email">Email<span class="required">*</span></label> -->
+                <input class="form-control" ng-model="mail" placeholder="Email">
+              </div>
+              <div class="actions clearfix">
+                <a href="javascript:void(0)" class="btn btn-primary d-block" ng-click="step=2">Next</a>
+              </div>
+            </fieldset>
+
+            <fieldset id="step2" role="tabpanel" class="body text-center" ng-show="step==2">
+              <div class="clearfix mt-4">
+                <div class="row">
+                  <div class="col-md-12">
+                      <h2 class="text-uppercase">Looking for a better energy plan <span class="red">?</span></h2>
+                      <p>We provide comparation of all providers for the most suitable plan for you</p>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md">
+                    <a class="btn btn-default text-center" href="ebill">
+                      <img class="d-block pb-4 mx-auto" src="/images/ebill.png">
+                      <h3>I have my e-bill handy</h3>
+                    </a>
+                  </div>
+                  <div class="col-md">
+                    <a class="btn btn-default text-center" href="/postcode">
+                      <img class="d-block pb-4 mx-auto" src="/images/postcode.png">
+                      <h3>I'll search with my postcode</h3>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset id="step4" role="tabpanel" class="body" ng-show="step==4">
+              <div class="form-group">
+                <label for="firstname">First Name<span class="required">*</span></label>
+                <input class="form-control" id="firstname" placeholder="">
+              </div>
+              <div class="form-group">
+                <label for="lastname">Last Name<span class="required">*</span></label>
+                <input class="form-control" id="lastname" placeholder="">
+              </div>
+              <div class="form-group">
+                <label for="mobile">Mobile<span class="required">*</span></label>
+                <input class="form-control" id="mobile" placeholder="">
+              </div>
+              <div class="form-group">
+                <label for="areacode">Area Code<span class="required">*</span></label>
+                <input class="form-control" id="areacode" placeholder="">
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone<span class="required">*</span></label>
+                <input class="form-control" id="phone" placeholder="">
+              </div>
+              <div class="form-group">
+                <label for="email">Email<span class="required">*</span></label>
+                <input class="form-control" id="email" placeholder="">
+              </div>
+              <div class="actions text-center mt-5 mb-4">
+                <a ng-click="step=5" href="javascript:void(0)" class="btn btn-outline-primary">Next</a>
+              </div>
+            </fieldset>
+
+            <fieldset id="step5" role="tabpanel" class="body" ng-show="step==5">
+              <div class="form-group">
+                <label for="postcode">Post Code<span class="required">*</span></label>
+                <input class="form-control" id="postcode" placeholder="">
+              </div>
+              <div class="form-group">
+                <label for="supply_address">Energy Supply Address<span class="required">*</span></label>
+                <input class="form-control" id="supply_address" placeholder="">
+              </div>
+              <div class="form-check form-group">
+                <input type="checkbox" class="form-check-input" id="same_address">
+                <label class="form-check-label" for="same_address">Postal address same as energy supply address</label>
+              </div>
+              <div class="form-inline form-group">
+                <label class="d-inline-block mr-3">Are you about to move into this address?</label>
+                <input type="radio" class="form-check-input" id="yes1" name="moveaddress">
+                <label for="yes1">Yes</label>
+                <input type="radio" class="form-check-input ml-3" id="no1" name="moveaddress">
+                <label for="no1">No</label>
+              </div>
+              <div class="form-inline form-group">
+                <label class="d-inline-block mr-3">Do you want solar installed at your property?</label>
+                <input type="radio" class="form-check-input" id="yes1" name="moveaddress">
+                <label for="yes1">Yes</label>
+                <input type="radio" class="form-check-input ml-3" id="no1" name="moveaddress">
+                <label for="no1">No</label>
+              </div>
+              <div class="form-group">
+                <label for="email">If you have an electricity ebill handy, please enter your National Meter Identifier(NMI) number?</label>
+                <input class="form-control" id="email" placeholder="">
+              </div>
+              <div class="form-inline form-group">
+                <label class="d-inline-block mr-3">Does anyone at your property require life support equipments?</label>
+                <input type="radio" class="form-check-input" id="yes1" name="moveaddress">
+                <label for="yes1">Yes</label>
+                <input type="radio" class="form-check-input ml-3" id="no1" name="moveaddress">
+                <label for="no1">No</label>
+              </div>
+              <div class="actions text-center mt-5 mb-4">
+                <a ng-click="step=4" href="javascript:void(0)" class="btn btn-outline-primary">Prev</a>
+                <a ng-click="step=6" href="javascript:void(0)" class="btn btn-outline-primary">Next</a>
+              </div>
+            </fieldset>
+  
+            <fieldset id="step6" role="tabpanel" class="body" ng-show="step==6">
+              <div class="form-group">
+                <label for="postcode">What's your date of birth?<span class="required">*</span></label>
+                <input class="form-control" id="postcode" placeholder="dd/mm/yyyy">
+              </div>
+              <div class="form-inline form-group">
+                <label class="d-inline-block mr-3">Please provide a form of identification</label>
+                <input type="radio" class="form-check-input" id="yes1" name="moveaddress">
+                <label for="yes1">Yes</label>
+                <input type="radio" class="form-check-input ml-3" id="no1" name="moveaddress">
+                <label for="no1">No</label>
+              </div>
+              <div class="form-inline form-group">
+                <label class="d-inline-block mr-3">Do you hold a concession card?</label>
+                <input type="radio" class="form-check-input" id="yes1" name="moveaddress">
+                <label for="yes1">Yes</label>
+                <input type="radio" class="form-check-input ml-3" id="no1" name="moveaddress">
+                <label for="no1">No</label>
+              </div>
+              <div class="actions text-center mt-5 mb-4">
+                <a ng-click="step=5" href="javascript:void(0)" class="btn btn-outline-primary">Prev</a>
+                <a ng-click="step=7" href="javascript:void(0)" class="btn btn-outline-primary">Next</a>
+              </div>
+            </fieldset>
+
+            <fieldset id="step7" role="tabpanel" class="body" ng-show="step==7">
+              <div class="form-inline form-group">
+                <label class="d-inline-block mr-3">Preferred payment method</label>
+                <input type="radio" class="form-check-input" id="yes1" name="moveaddress">
+                <label for="yes1">Direct Debit</label>
+                <input type="radio" class="form-check-input ml-3" id="no1" name="moveaddress">
+                <label for="no1">Credit Card</label>
+              </div>
+              <div class="form-group">
+                <label for="postcode">BSB Number</label>
+                <input class="form-control" id="postcode" placeholder="xxxxxx00000xx00xx">
+              </div>
+              <div class="form-group">
+                <label for="postcode">Account Number</label>
+                <input class="form-control" id="postcode" placeholder="xxxxxx00000xx00xx">
+              </div>
+              <div class="form-inline form-group">
+                <label class="d-inline-block mr-3">Preferred payment frequency</label>
+                <input type="radio" class="form-check-input" id="yes1" name="moveaddress">
+                <label for="yes1">Monthly</label>
+                <input type="radio" class="form-check-input ml-3" id="no1" name="moveaddress">
+                <label for="no1">Quaterly</label>
+              </div>
+              <div class="actions text-center mt-5 mb-4">
+                <a ng-click="step=6" href="javascript:void(0)" class="btn btn-outline-primary">Prev</a>
+                <a ng-click="step=8" href="javascript:void(0)" class="btn btn-outline-primary">Next</a>
+              </div>
+            </fieldset>
+          </div>
+
+        </div>
+    </div>
+    <footer id="footer" class="dark-footer">
+        <div class="upper-footer footer-bg py-4">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6 footer-logo my-auto">
+                <h3 class="text-md-left text-center">
+                    <a class="d-none d-lg-block" href="/"><img src="/images/logo.png"></a>
+                    <a class="d-lg-none" href="/"><img src="/images/mobile-logo.png"></a>
+                </h3>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <div class="widget py-3">
+                  <h3>About Us</h3>
+                  <address>
+                    <ul>
+                      <li><a href="#"><img class="dotted" src="/images/dotted.png"> Our story</a></li>
+                      <li><a href="/site/disclaimer"><img class="dotted" src="/images/dotted.png"> Disclaimer</a></li>
+                      <li><a href="/site/contact"><img class="dotted" src="/images/dotted.png"> Contact us </a></li>
+                    </ul>
+                  </address>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <div class="widget  py-3">
+                  <h3>Customer Info</h3>
+                  <ul>
+                    <li><a href="/policy"><img class="dotted" src="/images/dotted.png"> Privacy Policy </a></li>
+                    <li><a href="/site/copyright"><img class="dotted" src="/images/dotted.png"> Copyright </a></li>
+                    <li><a href="/terms"><img class="dotted" src="/images/dotted.png"> Terms &amp;Conditions </a></li>
+                    <li><a href="/support/faq"><img class="dotted" src="/images/dotted.png"> FAQ </a></li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="bottom-footer p-3">
+          <div class="container">
+            <div class="row pad-s15">
+              <nav class="navbar navbar-expand-lg m-lg-auto">
+                  <div class="container">
+                    <ul class="navbar-nav ml-auto">
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Find Energy Plan</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Our Story</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">FAQs</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Contact Us</a>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+              <div class="col-md-12 copy-right text-center">
+                <p>All Rights Reserved 2018 © Australia Market</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- Footer -->
+    <script defer src="sweetalert.min.js"></script>
+  </body>
+</html>
