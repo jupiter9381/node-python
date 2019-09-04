@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Energy Plans</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="bootstrap.min.js"></script>
+  </head>
+  <body>
+    <section class="section section-header">
+      <header id="topbar">
+        <nav class="navbar navbar-expand-lg d-none d-lg-block">
+          <div class="container">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link"><i class="fa fa-phone"></i>041-902-3339-323</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link"><i class="fa fa-envelope-o"></i>australiamarket@australiamarket.com.au</a>
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <a href="#" class="btn btn-danger btn-login">Log In</a>
+              <a href="#" class="btn btn-danger btn-register">Register</a>
+            </form>
+          </div>
+        </nav>
+      </header>
+
+      <div class="banner-container">
+        <nav class="navbar navbar-expand-lg ">
+          <div class="container">
+            <a class="navbar-brand d-none d-lg-block" href="/"><img src="/images/logo.png"></a>
+            <a class="navbar-brand d-lg-none" href="/"><img src="/images/mobile-logo.png"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="fa fa-bars"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Find Energy Plan</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Our Story</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">FAQs</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Contact Us</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div class="container py-5">
+          <div class="row">
+            <div class="col-md-6 my-auto text-md-left text-center">
+              <h1 class="text-uppercase">ENERGY PLANS SEARCH</h1>
+              <p class="description">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,</p>
+            </div>
+            <div class="col-md-6 d-none d-md-block text-center"><img src="/images/plan.png" class="img-fluid" alt=""></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container py-5" ng-app="App" ng-controller="EbillController">
+      <fieldset>
+        <script>
+          function about(){
+            swal({title:"Hello there!", text:"Placeholder text", type:"info"});
+          }
+        </script>
+        <form action="/ebill" method="post" enctype="multipart/form-data">
+          <input type="file" id="file" class="inputfile" name="file" accept=".pdf" required>
+          <label for="file"><a class="btn btn-lg btn-primary"><img src="/images/cloud.png"> Upload your bill</a></label>
+          <div class="text-center">
+            <img class="center d-none" src="loading.gif" draggable="false" alt="Your results are loading">
+          </div>
+          <% if(error !== null){ %>
+            <p id="error" class="alert alert-danger"><%= error %></p>
+          <% } %>
+        </form>
+        <script>
+          $('input[type=file]').change(function (e) {
+            $('form').submit();
+          });
+          $('form').one('submit', function(e) {
+            $(this).find('img').removeClass("d-none");
+            $(this).find('#error').css("display", "none");
+            $(this).find('input[type="submit"]').removeClass('ghost-button-hover');
+            $(this).find('input[type="file"]').css("cursor", "not-allowed");
+            e.preventDefault();
+            this.submit();
+            $(this).find('input[type="file"]').attr('disabled','disabled');
+          });
+        </script>
+        
+
+    </div>
+  </body>
+</html>
