@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Energy Plans</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="bootstrap.min.js"></script>
+    <script type="text/javascript">
+    function show_hide_row(row) {
+     $("#"+row).toggle();
+    }
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.13/angular-sanitize.min.js"></script>
+  
+    <script src="/js/script.js"></script>
+    <script src="/js/controllers.js"></script>
+    <!-- <script src="directives.js"></script> -->
+    <script src="/js/services.js"></script>
+  </head>
+  <body>
+    <section class="section section-header">
+      <header id="topbar">
+          <nav class="navbar navbar-expand-lg d-none d-lg-block">
+            <div class="container">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link"><i class="fa fa-phone"></i>041-902-3339-323</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"><i class="fa fa-envelope-o"></i>australiamarket@australiamarket.com.au</a>
+                </li>
+              </ul>
+              <form class="form-inline my-2 my-lg-0">
+                <a href="#" class="btn btn-danger btn-login">Log In</a>
+                <a href="#" class="btn btn-danger btn-register">Register</a>
+              </form>
+            </div>
+          </nav>
+      </header>
+
+      <div class="banner-container">
+          <nav class="navbar navbar-expand-lg ">
+            <div class="container">
+              <a class="navbar-brand d-none d-lg-block" href="/"><img src="/images/logo.png"></a>
+              <a class="navbar-brand d-lg-none" href="/"><img src="/images/mobile-logo.png"></a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa fa-bars"></span>
+              </button>
+            
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Find Energy Plan</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Our Story</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">FAQs</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Contact Us</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          <div class="container py-5">
+            <div class="row">
+              <div class="col-md-6 my-auto text-md-left text-center">
+                <h1 class="text-uppercase">ENERGY PLANS SEARCH</h1>
+                <p class="description">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,</p>
+              </div>
+              <div class="col-md-6 d-none d-md-block text-center"><img src="/images/plan.png" class="img-fluid" alt=""></div>
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <div class="container py-5" ng-app="App" ng-controller="PostcodeController">
+      <div class="steps mb-5">
+        <ul role="tablist" class="m-auto px-0">
+          <li role="tab" class="current col-sm">
+            <a>
+              <span class="current-info audible"> </span>
+              <h3 class="title font-weight-bold">1. Upload Bill</h3>
+            </a>
+          </li>
+          <li role="tab" class="col-sm ng-class:{'current':step>1}">
+            <a>
+              <h3 class="title font-weight-bold">2. Compare Plan</h3>
+            </a>
+          </li>
+          <li role="tab" class="col-sm ng-class:{'current':step>2}">
+            <a>
+              <h3 class="title font-weight-bold">3. Switch Plan</h3>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <fieldset ng-show="step==2 || step==3">
+        <% if(best === null && results === null && subresults === null){ %>
+        <form action="/postcode" method="post" style="position:relative;">
+          <div class="form-group">
+            <input id="query" name="query" type="text" class="form-control" placeholder="Enter your postcode" autocomplete="off" required>
+          </div>
+          <input type="hidden" name="type" value="sub">
+          <div class="form-group d-none">
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="type1" id="qc1" value="main">
+                  <label class="form-check-label" for="qc1">Main Plans</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="type1" id="qc2" value="sub">
+                  <label class="form-check-label" for="qc2">Sub Plans</label>
+                </div>
+          </div>
+          <div class="form-group text-center">
+              <input type="submit" class="btn btn-primary btn-lg" value="Search">
+          </div>
+          <img id="loading" class="d-none" src="loading.gif" width="100" height="100" draggable="false" alt="Your results are loading">
+          <% if(error !== null){ %>
+            <p id="error" class="alert alert-danger" role="alert"><%= error %></p>
+          <% } %>
+        </form>
+        <script>
+          $('form').one('submit', function(e) {
+            e.preventDefault();
+            this.submit();
+            $(this).find('input[type="submit"]').attr('disabled', 'disabled');
+            $(this).find('input[type="submit"]').css("cursor", "not-allowed");
+            $(this).find('input[type="submit"]').removeClass('ghost-button-hover');
+            $(this).find('input[type="radio"]').attr('disabled','disabled');
+            $(this).find('input[type="radio"]').css("cursor", "not-allowed");
+            $(this).find('input[type="text"]').attr('disabled','disabled');
+            $(this).find('input[type="text"]').css("cursor", "not-allowed");
+            $(this).find('img').removeClass("d-none");
+            $(this).find('#error').css("display", "none");
+          });
+        </script>
+        <script>
+          function getfocus() {
+            document.getElementById("query").focus();
+          }
+          function checkR() {
+            id = document.getElementById("checkedButton").innerHTML;
+            if (id == "main"){
+              document.getElementById("qc1").checked = true;
+            }
+            else if (id == "sub") {
+              document.getElementById("qc2").checked = true;
+            }
+          }
+          getfocus();checkR();
+        </script>
+        <% } %>
+        <% if(best !== null){ %>
+          <h2>Plans for Postcode <%= query %></h2>
+          </br>
+          <div class="card mb-5">
+            <div class="card-header bg-primary text-center">
+              Featured Plans
+            </div>
+            <div class="card-body px-0 pb-0">
+              <div class="table-responsive">
+                <table class="table table-striped table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <td><%= "Feature" %></td>
+                      <td><%= "Company" %></td>
+                      <td><%= "Name" %></td>
+                      <td><%= "Cost" %></td>
+                      <td><%= "Usage (kWh)" %></td>
+                      <td><%= "Discount" %></td>
+                      <td><%= "¢/kWh" %></td>
+                      <td><%= "Distributor" %></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for(var i=0; i < best.length; i++) { %>
+                    <tr>
+                      <td><%= best[i].feature %></td>
+                      <td><%= best[i].company %></td>
+                      <td><%= best[i].name %></td>
+                      <td><%= best[i].cost %></td>
+                      <td><%= best[i].usage %></td>
+                      <td><%= best[i].discount %></td>
+                      <td><%= best[i].pricePerkWh %></td>
+                      <td><%= best[i].distributor %></td>
+                    </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        <% } %>
+        <% if(results !== null){ %>
+          <div class="card mb-5">
+            <div class="card-header text-center">
+              All Plans
+            </div>
+            <div class="card-body pb-0 px-0">
+              <div class="table-responsive">
+                <table class="table table-striped table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <td><%= "#" %></td>
+                      <td><%= "Company" %></td>
+                      <td><%= "Name" %></td>
+                      <td><%= "Cost" %></td>
+                      <td><%= "Usage (kWh)" %></td>
+                      <td><%= "Discount" %></td>
+                      <td><%= "¢/kWh" %></td>
+                      <td><%= "Distributor" %></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for(var i=0; i < results.length; i++) { %>
+                    <tr>
+                      <td><%= i+1 %></td>
+                      <td><%= results[i].company %></td>
+                      <td><%= results[i].name %></td>
+                      <td><%= results[i].cost %></td>
+                      <td><%= results[i].usage %></td>
+                      <td><%= results[i].discount %></td>
+                      <td><%= results[i].pricePerkWh %></td>
+                      <td><%= results[i].distributor %></td>
+                    </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        <% } %>
+        
+        <% if(subresults !== null){ %>
+          <input type="hidden" ng-model="steps" value="3">
+          <div class="card mb-5">
+              <div class="card-header text-center bg-primary">
+                Plans for Postcode <%= query %>
+              </div>
+              <div class="card-body px-0 pb-0">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-hover mb-0">
+                    <thead>
+                        <td><%= "Company" %></td>
+                        <td><%= "Name" %></td>
+                        <td><%= "Plan ID" %></td>
+                        <td><%= "Cost" %></td>
+                        <td><%= "Usage per day" %></td>
+                        <td><%= "Distributor" %></td>
+                        <td><%= "" %></td>
+                    </thead>
+                    <tbody>
+                        <% for(var i=0; i < subresults.length; i++) { %>
+                        <tr>
+                          <td class="trows" rowspan="3"><%= subresults[i].company %></td>
+                          <td class="trows" rowspan="3"><%= subresults[i].title %></td>
+                          <td class="trows" rowspan="3"><%= subresults[i].id %></td>
+                          <td class="sep">$<%= subresults[i].tariffs[0].priceperkWh %></td>
+                          <td class="sep"><%= subresults[i].tariffs[0].usageperday %> kWh</td>
+                          <td class="trows" rowspan="3"><%= subresults[i].distributor %></td>
+                          <td onclick="show_hide_row('hidden_row'+<%= i %>);" class="expandcollapse" rowspan="3">View details</td>
+                        </tr>
+                        <tr>
+                          <td>$<%= subresults[i].tariffs[1].priceperkWh %></td>
+                          <td><%= subresults[i].tariffs[1].usageperday %> kWh</td>
+                        </tr>
+                        <tr>
+                          <td>$<%= subresults[i].tariffs[2].priceperkWh %></td>
+                          <td><%= subresults[i].tariffs[2].usageperday %> kWh</td>
+                        </tr>
+                        <tr >
+                          <td colspan="7" class="d-none" id="hidden_row<%= i %>">
+                            <table>
+                              <thead>
+                                <td><%= "Payment Options" %></td>
+                                <td><%= "Payment Details" %></td>
+                                <td><%= "Contract Details" %></td>
+                                <td><%= "Prices" %></td>
+                                <td><%= "Discounts" %></td>
+                                <td><%= "Eligiblity" %></td>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <% if(locals.subresults[i].paymentOptions){ %>
+                                    <td class="trows">
+                                      <ul>
+                                        <% for(var j=0; j < subresults[i].paymentOptions.length; j++) { %>
+                                          <li><%= subresults[i].paymentOptions[j] %></li>
+                                        <% } %>
+                                      </ul>
+                                      </td>
+                                  <% } %>
+                                  <td class="trows"><a href="#!" onclick="alert('<%= subresults[i].otherDetailsStr %>')">View</a></td>
+                                  <td class="trows"><a href="#!" onclick="alert('<%= subresults[i].contractDetailsStr %>')">View</a></td>
+                                  <td>
+                                      <% if(locals.subresults[i].controlledLoad){ %>
+                                        <%= subresults[i].controlledLoad.name %>:<ul>
+                                            <% if(locals.subresults[i].controlledLoad.minValue){ %>
+                                              <li><%= subresults[i].controlledLoad.minValue %> to <%= subresults[i].controlledLoad.maxValue %> <%= subresults[i].controlledLoad.type %></li>
+                                            <% } else { %>
+                                              <li><%= subresults[i].controlledLoad.value %> <%= subresults[i].controlledLoad.type %></li>
+                                            <% } %>
+                                        </ul>
+                                      <% } %>
+                                      <% for(var j=0; j < subresults[i].generalCharges.length; j++) { %>
+                                        <%= subresults[i].generalCharges[j].name %>:<ul>
+                                            <% if(locals.subresults[i].generalCharges[j].minValue){ %>
+                                              <li><%= subresults[i].generalCharges[j].minValue %> to <%= subresults[i].generalCharges[j].maxValue %> <%= subresults[i].generalCharges[j].type %></li>
+                                            <% } else { %>
+                                              <li><%= subresults[i].generalCharges[j].value %> <%= subresults[i].generalCharges[j].type %></li>
+                                            <% } %>
+                                        </ul>
+                                      <% } %>
+                                  </td>
+                                  <td class="trows"><a href="#!" onclick="alert('<%= subresults[i].discountsStr %>')">View</a></td>
+                                  <td class="trows"><a href="#!" onclick="alert('<%= subresults[i].eligiblityStr %>')">View</a></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <hr>
+                            <table class="table table-striped">
+                              <thead>
+                                <td><%= "Features" %></td>
+                                <td><%= "Fees and Charges" %></td>
+                                <td><%= "Greenpower" %></td>
+                                <td><%= "Solar" %></td>
+                                <td><%= "Time of Use Charges" %></td>
+                                <td><%= "Terms and Conditions" %></td>
+                              </thead>
+                              <tbody>
+                                <td class="trows"><a href="#!" onclick="alert('<%= subresults[i].featuresStr %>')">View</a></td>
+                                <td class="trows"><a href="#!" onclick="alert('<%= subresults[i].feesandChargesStr %>')">View</a></td>
+                                <td class="trows"><a href="#!" onclick="alert('<%= subresults[i].greenpowerStr %>')">View</a></td>
+                                <td class="trows"><a href="#!" onclick="alert('<%= subresults[i].solarStr %>')">View</a></td>
+                                <td class="trows"><a href="#!" onclick="alert('<%= subresults[i].timeofUseChargesStr %>')">View</a></td>
+                                <td class="trows"><a href="#!" onclick="alert('<%= subresults[i].termsandConditionsStr %>')">View</a></td>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </br>
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title font-weight-bold">Estimated annual savings for electricity: $</h5>
+              <p class="card-text">Our comparison aims to place you into an energy plan with long-term competitive prices. For more information refer to the section <a href="/faq">“How do we find competitive offers for you”</a> in our Frequently Asked Questions.</p>
+              <h4 class="card-text">Authorisation</h4>
+              <div class="form-check pb-3">
+                <input class="form-check-input" type="checkbox" id="auth" ng-model="auth">
+                <label class="form-check-label pb-3" for="auth">
+                  I authorise Austrila Market to:
+                </label>
+                <ul>
+                  <li>Manage my energy plan(s) on my behalf;</li>
+                  <li>Provide consent to switch energy providers on my behalf; and</li>
+                  <li>Receive a copy of my energy bills to check my prices and usage.</li>
+                </ul>
+              </div>
+              <div class="form-check pb-3">
+                <input class="form-check-input" type="checkbox" id="understand" ng-model="understand">
+                <label class="form-check-label" for="understand">
+                    I understand that Austrila Market will review my energy plan every 12 months and may recommend that I switch to another provider to ensure I am on a competitive deal.
+                </label>
+              </div>
+              <div class="form-check pb-3">
+                <input class="form-check-input" type="checkbox" id="terms" ng-model="terms">
+                <label class="form-check-label" for="terms">
+                    I agree to the <a href="/terms">Austrila Market Terms and Conditions.</a>
+                </label>
+              </div>
+              <a class="btn btn-primary btn-lg text-uppercase ng-class:{'disabled': !auth || !understand || !terms}" href="javascript:void(0)" ng-click="step=4">Switch My Energy plan</a>
+            </div>
+          </div>
+          <% } %>
+      </fieldset>
+      <% if(checkedR !== null){ %>
+        <label type="hidden" id="checkedButton" style="visibility:hidden"><%= checkedR %></label>
+      <% } %>
+
+      <fieldset id="step4" role="tabpanel" class="body" ng-show="step==4">
+        <div class="form-group">
+          <label for="firstname">First Name</label>
+          <input class="form-control" id="firstname" placeholder="" ng-model="firstname">
+        </div>
+        <div class="form-group">
+          <label for="lastname">Last Name</label>
+          <input class="form-control" id="lastname" placeholder="" ng-model="lastname">
+        </div>
+        <div class="form-group">
+          <label for="mobile">Mobile</label>
+          <input class="form-control" id="mobile" placeholder="" ng-model="model">
+        </div>
+        <div class="form-group">
+          <label for="areacode">Area Code</label>
+          <input class="form-control" id="areacode" placeholder="" ng-model="areacode">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input class="form-control" id="phone" placeholder="" ng-model="phone">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="" ng-model="email">
+        </div>
+        <div class="actions text-center mt-5 mb-4">
+          <a ng-click="step=5" href="javascript:void(0)" class="btn btn-outline-primary">Next</a>
+        </div>
+      </fieldset>
+
+      <fieldset id="step5" role="tabpanel" class="body" ng-show="step==5">
+        <div class="form-group">
+          <label for="postcode">Post Code</label>
+          <input class="form-control" id="postcode" placeholder="" ng-model="postcode">
+        </div>
+        <div class="form-group">
+          <label for="supply_address">Energy Supply Address</label>
+          <input class="form-control" id="supply_address" placeholder="" ng-model="supply_address">
+        </div>
+        <div class="form-check form-group">
+          <input type="checkbox" class="form-check-input" id="same_address" ng-model="same_address" ng-value="1" ng-init="checked=true">
+          <label class="form-check-label" for="same_address">Postal address same as energy supply address</label>
+        </div>
+        <div class="form-group" ng-show="same_address!=1">
+          <label for="postal_address">Postal Address</label>
+          <input class="form-control" id="postal_address" placeholder="" ng-model="postal_address">
+        </div>
+        <div class="form-inline form-group">
+          <label class="d-inline-block mr-3">Are you about to move into this address?</label>
+          <input type="radio" class="form-check-input" id="yes1" name="move_address" ng-model="move_address" ng-value="1">
+          <label for="yes1">Yes</label>
+          <input type="radio" class="form-check-input ml-3" id="no1" name="move_address" checked="checked" ng-model="move_address" ng-value="2">
+          <label for="no1">No</label>
+        </div>
+        <div class="form-group" ng-show="move_address==1">
+          <label for="postal_address">What date are you moving in?</label>
+          <input class="form-control" id="postal_address" placeholder="mm/dd/yyyy" ng-model="postal_address">
+        </div>
+        <div class="form-inline form-group">
+          <label class="d-inline-block mr-3">Do you have solar installed at your property?</label>
+          <input type="radio" class="form-check-input" id="solar_installedyes1" name="solar_installed" ng-model="solar_installed" ng-value="1">
+          <label for="solar_installedyes1">Yes</label>
+          <input type="radio" class="form-check-input ml-3" id="solar_installedno1" name="solar_installed" ng-init="checked=true" ng-model="solar_installed" ng-value="2">
+          <label for="solar_installedno1">No</label>
+        </div>
+        <div class="form-group">
+          <label for="nmi_number">If you have an electricity bill handy, please enter your National meter Identifier(NMI) number.</label>
+          <input class="form-control" id="nmi_number" placeholder="" ng-model="nmi_number">
+        </div>
+        <div class="form-inline form-group">
+          <label class="d-inline-block mr-3">Does anyone at your property require life support equipment?</label>
+          <input type="radio" class="form-check-input" id="yes1" name="require_equip" ng-model="require_equip" ng-value="1">
+          <label for="yes1">Yes</label>
+          <input type="radio" class="form-check-input ml-3" id="no1" name="require_equip" ng-init="checked=true" ng-model="require_equip" ng-value="2">
+          <label for="no1">No</label>
+        </div>
+        <div class="form-group" ng-show="require_eqip==2">
+          <label for="email">What type of life support do you have?</label>
+          <input class="form-control" id="support_type" placeholder="" ng-model="support_type">
+        </div>
+        <div class="actions text-center mt-5 mb-4">
+          <a ng-click="step=4" href="javascript:void(0)" class="btn btn-outline-primary">Prev</a>
+          <a ng-click="step=6" href="javascript:void(0)" class="btn btn-outline-primary">Next</a>
+        </div>
+      </fieldset>
+
+      <fieldset id="step6" role="tabpanel" class="body" ng-show="step==6">
+        <div class="form-group required">
+          <label for="postcode" class="label-control">What's your date of birth?</label>
+          <input class="form-control" id="birthdate" ng-model="birthdate" placeholder="dd/mm/yyyy">
+        </div>
+        <div class="form-inline form-group">
+          <label class="d-inline-block mr-3">Please provide a form of identification</label>
+          <input type="radio" class="form-check-input" id="id_type1" name="id_type" ng-model="id_type" ng-value="1">
+          <label for="id_type1">Passport</label>
+          <input type="radio" class="form-check-input ml-3" id="id_type2" name="id_type" ng-model="id_type" ng-value="2">
+          <label for="id_type2">Driver's License</label>
+          <input type="radio" class="form-check-input ml-3" id="id_type3" name="id_type" ng-model="id_type" ng-value="3">
+          <label for="id_type3">Driver's License</label>
+        </div>
+        <div class="form-row" ng-show="id_type">
+          <div class="form-group col-md-6">
+            <label for="id_number">{{id_type==1?'Passport Number':id_type==2?'Driver\'s License Number':id_type==3?'Medicare Card Number':''}}</label>
+            <input type="email" class="form-control" id="id_number" ng-model="id_number">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="id_expired">{{id_type==1?'Passport Expiry':id_type==2?'License Expiry Date':id_type==3?'Medicare Card Expiry':''}}</label>
+            <input type="password" class="form-control" id="id_expired" ng-model="id_expired" placeholder="mm/dd/yyyy">
+          </div>
+        </div>
+        <div class="form-inline form-group">
+          <label class="d-inline-block mr-3">Do you hold a concession card?</label>
+          <input type="radio" class="form-check-input" id="hold_yes1" name="hold_card" ng-model="hold_card" ng-value="1">
+          <label for="hold_yes1">Yes</label>
+          <input type="radio" class="form-check-input ml-3" id="hold_no1" ng-init="checked=true" name="hold_card" ng-model="hold_card" ng-value="2">
+          <label for="hold_no1">No</label>
+        </div>
+        <div class="form-group" ng-show="hold_card==1">
+          <label for="email">Consession Card Type</label>
+          <input class="form-control" id="card_type" placeholder="" ng-model="card_type">
+        </div>
+        <div class="form-row" ng-show="hold_card==1">
+          <div class="form-group col-md-6">
+            <label for="concession_id_number">Concession Card Number</label>
+            <input type="email" class="form-control" id="concession_id_number" ng-model="id_number">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="concession_id_expired">Concession Card Expiry</label>
+            <input type="password" class="form-control" id="concession_id_expired" ng-model="id_expired" placeholder="mm/dd/yyyy">
+          </div>
+        </div>
+        <div class="actions text-center mt-5 mb-4">
+          <a ng-click="step=5" href="javascript:void(0)" class="btn btn-outline-primary">Prev</a>
+          <a ng-click="step=7" href="javascript:void(0)" class="btn btn-outline-primary">Next</a>
+        </div>
+      </fieldset>
+
+      <fieldset id="step7" role="tabpanel" class="body" ng-show="step==7">
+        <div class="form-inline form-group">
+          <label class="d-inline-block mr-3">Preferred payment method</label>
+          <input type="radio" class="form-check-input" id="payment_methodyes1" name="payment_method" ng-model="payment_method" value="1">
+          <label for="payment_methodyes1">Direct Debit</label>
+          <input type="radio" class="form-check-input ml-3" id="payment_methodno1" name="payment_method" ng-model="payment_method" value="2">
+          <label for="payment_methodno1">Credit Card</label>
+        </div>
+        <div class="form-group" ng-show="payment_method==1">
+          <label for="bsn_number">BSB Number</label>
+          <input class="form-control" id="bsn_number" placeholder="xxxxxx00000xx00xx" ng-model="bsn_number">
+        </div>
+        <div class="form-group" ng-show="payment_method==1">
+          <label for="account_number">Account Number</label>
+          <input class="form-control" id="account_number" placeholder="xxxxxx00000xx00xx" ng-model="account_number">
+        </div>
+        <div class="form-inline form-group">
+          <label class="d-inline-block mr-3">Preferred payment frequency</label>
+          <input type="radio" class="form-check-input" id="monthly" name="payment_frequency" ng-model="payment_frequency" ng-value="2">
+          <label for="monthly">Monthly</label>
+          <input type="radio" class="form-check-input ml-3" id="quartely" name="payment_frequency" ng-model="payment_frequency" ng-value="2">
+          <label for="quartely">Quaterly</label>
+        </div>
+        <div class="actions text-center mt-5 mb-4">
+          <a ng-click="step=6" href="javascript:void(0)" class="btn btn-outline-primary">Prev</a>
+          <a ng-click="step=8" href="javascript:void(0)" class="btn btn-outline-primary">Next</a>
+        </div>
+      </fieldset>
+
+      <fieldset id="step8" role="tabpanel" class="body" ng-show="step==8">
+        <h4 class="mb-4 font-weight-bold">Review and Confirm Terms and Conditions</h4>
+        <h5>Direct Debit</h5>
+        <p>You consent to pay for your electricity usuage via a Direct Debit arrangement. Direct Debit will result in the full amount owed debited from your nominated bank account on the due date.</p>
+
+        <div class="form-check pb-3">
+          <input class="form-check-input" type="checkbox" id="confirm_term" ng-model="confirm_term">
+          <label class="form-check-label" for="confirm_term">
+              Can you confirm this?
+          </label>
+        </div>
+
+        <h5 class="my-4 font-weight-bold">Agree and submit</h5>
+        <p class="mb-2">When you click 'agree and submit', you agree:</p>
+        <ul style="list-style-type:decimal;">
+          <li>That you are transferring your at the address nominated by you during the sign-up process</li>
+          <li>That you have entered into an ongoing market contract with.</li>
+          <li>You have a 10-day cooling off period that will commerce once you have received your welcome email. This email will generally be sent within the next 2 business days. You can cancel this contract at any time and you will not incur any exit or termination fees.</li>
+          <li>All correspondence including bills will be issued to you via email.</li>
+        </ul>
+
+        <div class="form-check pb-3">
+          <input class="form-check-input" type="checkbox" id="confirm_term" ng-model="confirm_term">
+          <label class="form-check-label" for="confirm_term">
+              Can we keep you updated on news and offers?
+          </label>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-primary form-control" ng-disabled="!confirm_term">SWITCH MY ENERGY PLAN</a>
+        </div>
+      </fieldset>
+
+    </div>
+  
+    <footer id="footer" class="dark-footer">
+      <div class="upper-footer footer-bg py-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 footer-logo my-auto">
+              <h3 class="text-md-left text-center">
+                  <a class="d-none d-lg-block" href="/"><img src="/images/logo.png"></a>
+                  <a class="d-lg-none" href="/"><img src="/images/mobile-logo.png"></a>
+              </h3>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="widget py-3">
+                <h3>About Us</h3>
+                <address>
+                  <ul>
+                    <li><a href="#"><img class="dotted" src="/images/dotted.png"> Our story</a></li>
+                    <li><a href="/site/disclaimer"><img class="dotted" src="/images/dotted.png"> Disclaimer</a></li>
+                    <li><a href="/site/contact"><img class="dotted" src="/images/dotted.png"> Contact us </a></li>
+                  </ul>
+                </address>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="widget  py-3">
+                <h3>Customer Info</h3>
+                <ul>
+                  <li><a href="/policy"><img class="dotted" src="/images/dotted.png"> Privacy Policy </a></li>
+                  <li><a href="/site/copyright"><img class="dotted" src="/images/dotted.png"> Copyright </a></li>
+                  <li><a href="/terms"><img class="dotted" src="/images/dotted.png"> Terms &amp;Conditions </a></li>
+                  <li><a href="/support/faq"><img class="dotted" src="/images/dotted.png"> FAQ </a></li>
+                </ul>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom-footer p-3">
+        <div class="container">
+          <div class="row pad-s15">
+            <nav class="navbar navbar-expand-lg m-lg-auto">
+                <div class="container">
+                  <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Find Energy Plan</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Our Story</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">FAQs</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Contact Us</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            <div class="col-md-12 copy-right text-center">
+              <p>All Rights Reserved 2018 © Australia Market</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>    
+
+    <script defer src="sweetalert.min.js"></script>
+  </body>
+</html>
