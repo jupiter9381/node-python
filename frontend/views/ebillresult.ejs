@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Energy Plans</title>
+    <style>
+    .item1 { grid-area: header; }
+    .item2 { grid-area: menu; }
+    .item3 { grid-area: main; }
+    .item4 { grid-area: right; }
+    .item5 { grid-area: footer; }
+    
+    .grid-container {
+      display: grid;
+      grid-template-areas:
+        'header header header header header header'
+        'menu main main main right right'
+        'menu footer footer footer footer footer';
+      grid-gap: 10px;
+      background-color: #2196F3;
+      padding: 10px;
+    }
+    
+    .grid-container > div {
+      background-color: rgba(255, 255, 255, 0.8);
+      text-align: center;
+      padding: 20px 0;
+      font-size: 30px;
+    }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="bootstrap.min.js"></script>
+    <script type="text/javascript">
+    function show_hide_row(row)
+    {
+     $("#"+row).toggle();
+    }
+    </script>
+  </head>
+  <body>
+    <section class="section section-header">
+      <header id="topbar">
+        <nav class="navbar navbar-expand-lg d-none d-lg-block">
+          <div class="container">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link"><i class="fa fa-phone"></i>041-902-3339-323</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link"><i class="fa fa-envelope-o"></i>australiamarket@australiamarket.com.au</a>
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <a href="#" class="btn btn-danger btn-login">Log In</a>
+              <a href="#" class="btn btn-danger btn-register">Register</a>
+            </form>
+          </div>
+        </nav>
+      </header>
+
+      <div class="banner-container">
+        <nav class="navbar navbar-expand-lg ">
+          <div class="container">
+            <a class="navbar-brand d-none d-lg-block" href="/"><img src="/images/logo.png"></a>
+            <a class="navbar-brand d-lg-none" href="/"><img src="/images/mobile-logo.png"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="fa fa-bars"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Find Energy Plan</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Our Story</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">FAQs</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Contact Us</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div class="container py-5">
+          <div class="row">
+            <div class="col-md-6 my-auto text-md-left text-center">
+              <h1 class="text-uppercase">ENERGY PLANS SEARCH</h1>
+              <p class="description">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,</p>
+            </div>
+            <div class="col-md-6 d-none d-md-block text-center"><img src="/images/plan.png" class="img-fluid" alt=""></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container py-5">
+      <h1><a href="/">Energy Plans Search</a></h1>
+      <fieldset>
+        <script>
+          function about(){
+            swal({title:"Hello there!", text:"Placeholder text", type:"info"});
+          }
+        </script>
+        <% if(error !== null){ %>
+          <p id="error"><%= error.error %></p>
+          </br>
+          <button class="ghost-button ghost-button-hover" onclick="window.location='/ebill';" >Try again?</button>
+        <% } %>
+        <% if(result !== null){ %>
+            <h2>cheapest yearly estimate based on your bill: $<%= result.estimate %></h2>
+            </br>
+            <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                  <td><%= "Company" %></td>
+                  <td><%= "Name" %></td>
+                  <td><%= "Plan ID" %></td>
+                  <td><%= "Cost" %></td>
+                  <td><%= "Usage per day" %></td>
+                  <td><%= "Distributor" %></td>
+              </thead>
+              <tbody>
+                  <tr>
+                    <td class="trows" rowspan="3"><%= result.plan.company %></td>
+                    <td class="trows" rowspan="3"><%= result.plan.title %></td>
+                    <td class="trows" rowspan="3"><%= result.plan.id %></td>
+                    <td class="sep">$<%= result.plan.tariffs[0].priceperkWh %></td>
+                    <td class="sep"><%= result.plan.tariffs[0].usageperday %> kWh</td>
+                    <td class="trows" rowspan="3"><%= result.plan.distributor %></td>
+                  </tr>
+                  <tr>
+                    <td>$<%= result.plan.tariffs[1].priceperkWh %></td>
+                    <td><%= result.plan.tariffs[1].usageperday %> kWh</td>
+                  </tr>
+                  <tr>
+                    <td>$<%= result.plan.tariffs[2].priceperkWh %></td>
+                    <td><%= result.plan.tariffs[2].usageperday %> kWh</td>
+                  </tr>
+                  <tr >
+                    <td colspan="7">
+                      <table>
+                        <thead class="table">
+                          <td><%= "Payment Options" %></td>
+                          <td><%= "Payment Details" %></td>
+                          <td><%= "Contract Details" %></td>
+                          <td><%= "Prices" %></td>
+                          <td><%= "Discounts" %></td>
+                          <td><%= "Eligiblity" %></td>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <% if(locals.result.plan.paymentOptions){ %>
+                              <td class="trows">
+                                <ul>
+                                  <% for(var j=0; j < result.plan.paymentOptions.length; j++) { %>
+                                    <li><%= result.plan.paymentOptions[j] %></li>
+                                  <% } %>
+                                </ul>
+                                </td>
+                            <% } %>
+                            <td class="trows"><a href="#!" onclick="alert('<%= result.plan.otherDetailsStr %>')">View</a></td>
+                            <td class="trows"><a href="#!" onclick="alert('<%= result.plan.contractDetailsStr %>')">View</a></td>
+                            <td>
+                                <% if(locals.result.plan.controlledLoad){ %>
+                                  <%= result.plan.controlledLoad.name %>:<ul>
+                                      <% if(locals.result.plan.controlledLoad.minValue){ %>
+                                        <li><%= result.plan.controlledLoad.minValue %> to <%= result.plan.controlledLoad.maxValue %> <%= result.plan.controlledLoad.type %></li>
+                                      <% } else { %>
+                                        <li><%= result.plan.controlledLoad.value %> <%= result.plan.controlledLoad.type %></li>
+                                      <% } %>
+                                  </ul>
+                                <% } %>
+                                <% for(var j=0; j < result.plan.generalCharges.length; j++) { %>
+                                  <%= result.plan.generalCharges[j].name %>:<ul>
+                                      <% if(locals.result.plan.generalCharges[j].minValue){ %>
+                                        <li><%= result.plan.generalCharges[j].minValue %> to <%= result.plan.generalCharges[j].maxValue %> <%= result.plan.generalCharges[j].type %></li>
+                                      <% } else { %>
+                                        <li><%= result.plan.generalCharges[j].value %> <%= result.plan.generalCharges[j].type %></li>
+                                      <% } %>
+                                  </ul>
+                                <% } %>
+                            </td>
+                            <td class="trows"><a href="#!" onclick="alert('<%= result.plan.discountsStr %>')">View</a></td>
+                            <td class="trows"><a href="#!" onclick="alert('<%= result.plan.eligiblityStr %>')">View</a></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <hr>
+                      <table>
+                        <thead>
+                          <td><%= "Features" %></td>
+                          <td><%= "Fees and Charges" %></td>
+                          <td><%= "Greenpower" %></td>
+                          <td><%= "Solar" %></td>
+                          <td><%= "Time of Use Charges" %></td>
+                          <td><%= "Terms and Conditions" %></td>
+                        </thead>
+                        <tbody>
+                          <td class="trows"><a href="#!" onclick="alert('<%= result.plan.featuresStr %>')">View</a></td>
+                          <td class="trows"><a href="#!" onclick="alert('<%= result.plan.feesandChargesStr %>')">View</a></td>
+                          <td class="trows"><a href="#!" onclick="alert('<%= result.plan.greenpowerStr %>')">View</a></td>
+                          <td class="trows"><a href="#!" onclick="alert('<%= result.plan.solarStr %>')">View</a></td>
+                          <td class="trows"><a href="#!" onclick="alert('<%= result.plan.timeofUseChargesStr %>')">View</a></td>
+                          <td class="trows"><a href="#!" onclick="alert('<%= result.plan.termsandConditionsStr %>')">View</a></td>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title font-weight-bold">Estimated annual savings for electricity: $<%= result.estimate %></h5>
+              <p class="card-text">Our comparison aims to place you into an energy plan with long-term competitive prices. For more information refer to the section <a href="/faq">“How do we find competitive offers for you”</a> in our Frequently Asked Questions.</p>
+              <h4 class="card-text">Authorisation</h4>
+              <div class="form-check pb-3">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                  I authorise Austrila Market to:
+                </label>
+                <ul>
+                  <li>Manage my energy plan(s) on my behalf;</li>
+                  <li>Provide consent to switch energy providers on my behalf; and</li>
+                  <li>Receive a copy of my energy bills to check my prices and usage.</li>
+                </ul>
+              </div>
+              <div class="form-check pb-3">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    I understand that Austrila Market will review my energy plan every 12 months and may recommend that I switch to another provider to ensure I am on a competitive deal.
+                </label>
+              </div>
+              <div class="form-check pb-3">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    I agree to the <a href="/terms">Austrila Market Terms and Conditions.</a>
+                </label>
+              </div>
+              <a class="btn btn-primary btn-lg text-uppercase" href="#" >Switch My Energy plan</a>
+            </div>
+          </div>
+          
+          <% } %>
+      </div>
+
+    <footer id="footer" class="dark-footer">
+      <div class="upper-footer footer-bg py-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 footer-logo my-auto">
+              <h3 class="text-md-left text-center">
+                  <a class="d-none d-lg-block" href="/"><img src="/images/logo.png"></a>
+                  <a class="d-lg-none" href="/"><img src="/images/mobile-logo.png"></a>
+              </h3>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="widget py-3">
+                <h3>About Us</h3>
+                <address>
+                  <ul>
+                    <li><a href="#"><img class="dotted" src="/images/dotted.png"> Our story</a></li>
+                    <li><a href="/site/disclaimer"><img class="dotted" src="/images/dotted.png"> Disclaimer</a></li>
+                    <li><a href="/site/contact"><img class="dotted" src="/images/dotted.png"> Contact us </a></li>
+                  </ul>
+                </address>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="widget  py-3">
+                <h3>Customer Info</h3>
+                <ul>
+                  <li><a href="/policy"><img class="dotted" src="/images/dotted.png"> Privacy Policy </a></li>
+                  <li><a href="/site/copyright"><img class="dotted" src="/images/dotted.png"> Copyright </a></li>
+                  <li><a href="/terms"><img class="dotted" src="/images/dotted.png"> Terms &amp;Conditions </a></li>
+                  <li><a href="/support/faq"><img class="dotted" src="/images/dotted.png"> FAQ </a></li>
+                </ul>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom-footer p-3">
+        <div class="container">
+          <div class="row pad-s15">
+            <nav class="navbar navbar-expand-lg m-lg-auto">
+                <div class="container">
+                  <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Find Energy Plan</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Our Story</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">FAQs</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Contact Us</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            <div class="col-md-12 copy-right text-center">
+              <p>All Rights Reserved 2018 © Australia Market</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>    
+
+    <script defer src="sweetalert.min.js"></script>
+  </body>
+</html>
